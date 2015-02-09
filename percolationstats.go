@@ -9,9 +9,9 @@ import(
   "runtime"
 )
 
-var nFlag = flag.Int("n", 10, "size")
-var tFlag = flag.Int("t", 100, "repetitions")
-var tCPUS = flag.Int("cpus", 4, "number of CPUs")
+var nFlag = flag.Int("n", 200, "size")
+var tFlag = flag.Int("t", 10, "repetitions")
+var tCPUS = flag.Int("cpus", 1, "number of CPUs")
 
 func newRndCell(n int) percolation.Cell {
   i:= uint(rand.Intn(n))

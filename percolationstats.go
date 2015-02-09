@@ -9,9 +9,13 @@ import(
   "runtime"
 )
 
+var concurrency = 8
+
 var nFlag = flag.Int("n", 200, "size")
 var tFlag = flag.Int("t", 10, "repetitions")
 var tCPUSFlag = flag.Int("cpus", 1, "number of CPUs")
+
+var semaphore = make(chan int, concurrency)
 
 func newRndCell(r *rand.Rand, n int) percolation.Cell {
   i:= uint(r.Intn(n))
@@ -20,6 +24,7 @@ func newRndCell(r *rand.Rand, n int) percolation.Cell {
 }
 
 func calcPercolation(n int, c chan float32){
+  semaphore <- 1
   r := rand.New(rand.NewSource(time.Now().UnixNano()))
   p:= new(percolation.Percolation)
   p.Initialize(uint(n))
@@ -33,6 +38,7 @@ func calcPercolation(n int, c chan float32){
     }
   }
   c <- float32(count) / float32(n*n)
+  <-semaphore
 }
 
 func main(){

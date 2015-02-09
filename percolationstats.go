@@ -14,9 +14,8 @@ var tFlag = flag.Int("t", 100, "repetitions")
 var tCPUS = flag.Int("cpus", 4, "number of CPUs")
 
 func newRndCell(n int) percolation.Cell {
-  r := rand.New(rand.NewSource(time.Now().UnixNano()))
-  i:= uint(r.Intn(n))
-  j:= uint(r.Intn(n))
+  i:= uint(rand.Intn(n))
+  j:= uint(rand.Intn(n))
   return percolation.Cell{i, j}
 }
 
@@ -37,6 +36,8 @@ func calcPercolation(n int, c chan float32){
 
 func main(){
 
+  rand.Seed( time.Now().UTC().UnixNano())
+  
   start := time.Now()
 
   flag.Parse()

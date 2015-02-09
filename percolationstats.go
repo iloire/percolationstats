@@ -57,7 +57,8 @@ func main(){
     sum = sum + <-c
   }
   
-  fmt.Printf("\n took: %v", time.Since(start))
   fmt.Printf("\n mean: %v", sum / float32(t))
+  fmt.Printf("\n took: %v", time.Since(start))
 
   //TODO: stddev, confidence interval, etc.
+}
